@@ -1,5 +1,6 @@
 import ply.lex as lex;
 
+#1
 reserved = {
     'print' : 'PRINT',
     'cat' : 'CAT',
@@ -34,8 +35,9 @@ tokens = [
 'BOOLEAN'
 ] + list(reserved.values())
 
+#2
 t_PLUS = r'\+'
-t_MINUS = r'-'
+t_MINUS = r'\-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_MODULO = r'\%\%'
@@ -54,9 +56,9 @@ t_COMMA = r'\,'
 t_SEMICOLON = r';'
 t_STRING = r'\".*?\n*\"'
 
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'ID')
+#3
+def t_BOOLEAN(t):
+    r'T(RUE)? | F(ALSE)?'
     return t
 
 def t_FLOAT(t):
@@ -69,8 +71,10 @@ def t_INTEGER(t):
     t.value = int(t.value)
     return t
 
-def t_BOOLEAN(t):
-    r'T(RUE)? | F(ALSE)?'
+def t_ID(t):
+    r'([a-zA-Z][a-zA-Z_0-9]* | [.][a-zA-Z_]*)'
+    t.type = reserved.get(t.value,'ID')
+    return t
 
 def t_newline(t):
     r'\n+'
@@ -118,6 +122,8 @@ lexer = lex.lex()
 # data += '   }\n'
 # data += '   num <- num + 1\n'
 # data += '}\n'
+
+data = '.35'
 
 lexer.input(data)
 
