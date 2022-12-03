@@ -5,7 +5,6 @@ reserved = {
     'cat' : 'CAT',
     'if' : 'IF',
     'else' : 'ELSE',
-    'for' : 'FOR',
     'while' : 'WHILE'
 }
 
@@ -106,7 +105,7 @@ lexer = lex.lex()
 # data += '}else{\n'
 # data += '   bignum<-num2;\n'
 # data += '   cat("Big Number is ", bignum, "\n")\n'
-# data += '}'
+# data += '}\n'
 
 # Looping with Conditional IF ELSE
 # data = 'cat("List of odd numbers 1-100: \n")\n'
@@ -115,10 +114,10 @@ lexer = lex.lex()
 # data += '   sisa <- num %% 2\n'
 # data += '   if(sisa != 0){\n'
 # data += '       oddnum <- num\n'
-# data += '       cat(oddnum, " ");'
-# data += '   }'
-# data += '   num <- num + 1'
-# data += '}'
+# data += '       cat(oddnum, " ");\n'
+# data += '   }\n'
+# data += '   num <- num + 1\n'
+# data += '}\n'
 
 lexer.input(data)
 
