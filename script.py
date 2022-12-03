@@ -37,7 +37,7 @@ tokens = [
 
 #2
 t_PLUS = r'\+'
-t_MINUS = r'\-'
+t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_MODULO = r'\%\%'
@@ -101,8 +101,8 @@ lexer = lex.lex()
 # data += 'avg <- sum / 3\n'
 
 # Conditional IF ELSE
-# data = 'num <- 10\n'
-# data += 'num <- 20\n'
+# data = 'num1 <- 10\n'
+# data += 'num2 <- 20\n'
 # data += 'if(num1 > num2){\n'
 # data += '   bignum<-num1;\n'
 # data += '   cat("Big Number is ", bignum, "\n")\n'
@@ -122,8 +122,6 @@ lexer = lex.lex()
 # data += '   }\n'
 # data += '   num <- num + 1\n'
 # data += '}\n'
-
-data = '.35'
 
 lexer.input(data)
 
