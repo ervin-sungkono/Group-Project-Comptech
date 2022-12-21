@@ -1,9 +1,8 @@
 import ply.lex as lex;
 
-#1
 reserved = {
     'print' : 'PRINT',
-    'cat' : 'CAT',
+    'cat' : 'PRINT',
     'if' : 'IF',
     'else' : 'ELSE',
     'while' : 'WHILE'
@@ -29,13 +28,13 @@ tokens = [
 'NE',
 'COMMA',
 'SEMICOLON',
-'FLOAT',
-'INTEGER',
+# 'FLOAT',
+# 'INTEGER',
+'NUMBER',
 'STRING',
 'BOOLEAN'
 ] + list(reserved.values())
 
-#2
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -52,24 +51,36 @@ t_GT = r'>'
 t_GE = r'>='
 t_ET = r'=='
 t_NE = r'!='
-t_COMMA = r'\,'
+t_COMMA = r','
 t_SEMICOLON = r';'
-t_STRING = r'\".*?\n*\"'
 
-#3
+def t_STRING(t):
+    r'"[^"]*"'
+    t.value = t.value[1:-1]
+    return t
+
 def t_BOOLEAN(t):
     r'T(RUE)? | F(ALSE)?'
     return t
 
-def t_FLOAT(t):
-    r'[+-]?\d*\.\d+'
-    t.value = float(t.value)
-    return t
+def t_NUMBER(t):
+    r'\d+\.\d*|\d*\.\d+|\d+'
+    try:
+        t.value = int(t.value)
+    except ValueError:
+        t.value = float(t.value)
+    return t    
 
-def t_INTEGER(t):
-    r'[+-]?\d+'
-    t.value = int(t.value)
-    return t
+# def t_FLOAT(t):
+#     r'[+-]?\d*\.\d+'
+#     t.value = float(t.value)
+#     return t
+
+# def t_INTEGER(t):
+
+#     r'[+-]?\d+'
+#     t.value = int(t.value)
+#     return t
 
 def t_ID(t):
     r'([a-zA-Z][a-zA-Z_0-9]* | [.][a-zA-Z_]*)'
@@ -81,17 +92,16 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 def t_error(t):
-    print("Illegal character '%s" %t.value[0])
+    print("Illegal character '%s'" %t.value[0])
     t.lexer.skip(1)
 
 t_ignore = ' \t'
 t_ignore_COMMENT = r'\#.*'
 
-lexer = lex.lex()
-
+# Untuk Testing
 # Print Statement
-# data = 'print("Hello, world!")\n'
-# data += 'cat("Thanks")\n'
+data = 'print("Hello, world!")\n'
+data += 'cat("Thanks")\n'
 
 # Arithmetic Expression
 # data = 'num1 <- 10\n'
@@ -123,6 +133,7 @@ lexer = lex.lex()
 # data += '   num <- num + 1\n'
 # data += '}\n'
 
+lexer = lex.lex()
 lexer.input(data)
 
 while True:
