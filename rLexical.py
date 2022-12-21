@@ -32,7 +32,9 @@ tokens = [
 # 'INTEGER',
 'NUMBER',
 'STRING',
-'BOOLEAN'
+'BOOLEAN',
+'CONDITION',
+'STATEMENT'
 ] + list(reserved.values())
 
 t_PLUS = r'\+'
@@ -61,6 +63,11 @@ def t_STRING(t):
 
 def t_BOOLEAN(t):
     r'T(RUE)? | F(ALSE)?'
+    return t
+
+def t_CONDITION(t):
+    r'[^\{\}]+'
+    t.value = t.value.strip()
     return t
 
 def t_NUMBER(t):
